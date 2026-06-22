@@ -1,88 +1,206 @@
+/* =========================================
+   1. CSS Variables (Theming)
+   ========================================= */
 :root {
     --primary-color: #c142bb;
+    --primary-hover: #a537a0; 
+    --primary-light: rgba(193, 66, 187, 0.1); 
+    --text-dark: #222222;
+    --border-color: #ced4da;
 }
 
-/* 1. Global Buttons & Forms */
-.btn-dark {
-    background-color: var(--primary-color) !important;
-    border-color: var(--primary-color) !important;
-}
-
-.btn-outline-danger {
+/* =========================================
+   2. Custom Theme Classes
+   ========================================= */
+.text-theme {
     color: var(--primary-color) !important;
-    border-color: var(--primary-color) !important;
 }
 
-/* Add this to style.css */
-.my-primary {
-    color: #c142bb !important;
+.bg-theme-light {
+    background-color: var(--primary-light);
+}
+/* Primary Theme Button */
+.btn-theme {
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(193, 66, 187, 0.25); /* Always has a soft shadow */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.btn-outline-danger:hover {
-    background-color: var(--primary-color) !important;
-    color: white !important;
+.btn-theme:hover, .btn-theme:focus {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(193, 66, 187, 0.4); /* Shadow expands on hover */
 }
 
-.text-danger, .btn-danger, .edit-btn, .add-btn {
-    color: #ffffff !important;
-    background-color: var(--primary-color) !important;
-    border-color: var(--primary-color) !important;
+/* Outline Theme Button */
+.btn-outline-theme {
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color); /* 2px makes it look substantial, not flimsy */
+    background-color: transparent;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* 2. Form Focus States */
-.form-control:focus, .form-select:focus {
-    border-color: var(--primary-color) !important;
-    box-shadow: 0 0 0 0.25rem rgba(193, 66, 187, 0.25) !important;
+.btn-outline-theme:hover, .btn-outline-theme:focus {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(193, 66, 187, 0.4); /* Matches the primary hover */
 }
 
-/* 3. Filter Bar */
+/* =========================================
+   3. Form & Input Overrides
+   ========================================= */
+.form-control:focus, 
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem var(--primary-light);
+}
+
+/* Filter Bar */
 .filter-bar .input-group-text {
     color: var(--primary-color);
     background-color: #f8f9fa;
-    border-color: #ced4da;
+    border-color: var(--border-color);
 }
 
-.btn-outline-secondary:hover {
-    background-color: var(--primary-color) !important;
-    border-color: var(--primary-color) !important;
-    color: white !important;
+/* =========================================
+   4. Component Specific Styling
+   ========================================= */
+
+/* Feature Cards (Landing Page) */
+.feature-card {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 4. Navbar & Buttons */
-.nav-add-btn {
-    color: #222222 !important;
-    font-weight: 500 !important;
-    padding: 0.5rem 1rem !important;
-    border-radius: 25px;
-    transition: 0.3s ease;
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px var(--primary-light);
 }
 
-.nav-add-btn i {
-    color: var(--primary-color) !important; /* Fixed: now uses variable */
-    font-size: 1.1rem;
-    vertical-align: middle;
+.icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    margin-bottom: 1.5rem;
 }
 
-/* 5. Listing Cards */
+/* Listing Cards (Index Page) */
 .listing-card {
-    border: none !important;
+    border: none;
     margin-bottom: 2rem;
+    transition: transform 0.2s ease;
+}
+
+.listing-card:hover {
+    transform: scale(1.02);
 }
 
 .listing-link {
     text-decoration: none;
-    color: #222222;
+    color: var(--text-dark);
 }
 
 .card-img-top {
-    border-radius: 1rem !important;
+    border-radius: 1rem;
     width: 100%;
-    height: 18rem !important;
-    object-fit: cover !important;
+    height: 18rem;
+    object-fit: cover;
 }
 
-/* 6. Mobile Fixes */
+/* =========================================
+   5. Navbar Utilities
+   ========================================= */
+.nav-add-btn {
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-add-btn i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.nav-add-btn:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+/* =========================================
+   6. Responsive Mobile Fixes
+   ========================================= */
 @media (max-width: 768px) {
-    .nav-add-btn { padding: 0.5rem 0 !important; }
-    .navbar-nav { align-items: center; }
+    .nav-add-btn { 
+        padding: 0.5rem 0; 
+    }
+    .navbar-nav { 
+        align-items: center; 
+    }
+}
+.my-primary{
+ color:var(--primary-color) !important;
+}
+/* =========================================
+   Override Bootstrap's Dark Buttons
+   ========================================= */
+
+.btn-dark {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-dark:hover, 
+.btn-dark:focus {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px var(--primary-light) !important;
+}
+
+.btn-outline-dark {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-dark:hover, 
+.btn-outline-dark:focus {
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Brand Logo Sizing */
+.brand-logo {
+    height: 35px; /* Adjust this value if your logo looks too big or too small */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Footer specific size if you want it larger/smaller there */
+.footer-logo {
+    height: 28px;
+    width: auto;
 }

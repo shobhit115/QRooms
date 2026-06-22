@@ -1,29 +1,30 @@
-<footer class="mt-auto border-top bg-light">
-  <div class="container py-4">
+<footer class="mt-auto border-top bg-light py-4">
+  <div class="container">
     <div class="row align-items-center">
+      
       <div class="col-12 col-md-4 text-center text-md-start mb-3 mb-md-0">
-        <div class="f-info-brand">
-          &copy; <%= new Date().getFullYear() %> Wanderlust Private Limited
-        </div>
+  <div class="mb-2">
+    <img src="/QRooms-logo.svg" alt="QRooms Logo" class="footer-logo">
+    
+    <span class="fw-bold text-dark fs-5 align-middle ms-2">QRooms</span>
+  </div>
+  <div class="text-muted small">
+    &copy; <%= new Date().getFullYear() %> All rights reserved.
+  </div>
+</div>
+
+      <div class="col-12 col-md-4 d-flex justify-content-center gap-3 mb-3 mb-md-0">
+        <a href="/privacy" class="text-decoration-none text-muted small hover-dark">Privacy</a>
+        <a href="/terms" class="text-decoration-none text-muted small hover-dark">Terms</a>
+        <a href="/details" class="text-decoration-none text-muted small hover-dark">Contact</a>
       </div>
 
-      <div class="col-12 col-md-4 text-center mb-3 mb-md-0">
-        <div class="f-info-links">
-          <a href="/privacy" class="mx-2">Privacy</a>
-          <span class="text-muted">·</span>
-          <a href="/terms" class="mx-2">Terms</a>
-          <span class="text-muted">·</span>
-          <a href="/details" class="mx-2">Details</a>
-        </div>
+      <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end gap-3">
+        <a href="#" class="text-muted text-decoration-none fs-5"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="text-muted text-decoration-none fs-5"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="text-muted text-decoration-none fs-5"><i class="fa-brands fa-linkedin"></i></a>
       </div>
-
-      <div class="col-12 col-md-4 text-center text-md-end">
-        <div class="f-info-socials">
-          <a href="#" class="text-dark me-3"><i class="fa-brands fa-square-facebook"></i></a>
-          <a href="#" class="text-dark me-3"><i class="fa-brands fa-square-instagram"></i></a>
-          <a href="#" class="text-dark"><i class="fa-brands fa-linkedin"></i></a>
-        </div>
-      </div>
+      
     </div>
   </div>
 </footer>
