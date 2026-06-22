@@ -1,0 +1,129 @@
+/* Modern Add Listing Link */
+.nav-add-btn {
+    color: #222222 !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-add-btn:hover {
+    background-color: #f7f7f7 !important;
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+.nav-add-btn i {
+    color: #fe424d; /* Theme color for the plus icon */
+    font-size: 1.1rem;
+    vertical-align: middle;
+}
+
+/* Fix for mobile alignment */
+@media (max-width: 768px) {
+    .nav-add-btn {
+        padding: 0.5rem 0 !important;
+        margin-bottom: 0.5rem;
+    }
+    .nav-add-btn:hover {
+        background-color: transparent !important;
+    }
+}
+/* Ensure the collapse menu items are centered on mobile */
+@media (max-width: 767.98px) {
+    .navbar-collapse {
+        padding-bottom: 1rem;
+    }
+    
+    .navbar-nav {
+        align-items: center; /* Centers items in the flex container */
+    }
+
+    .nav-link {
+        padding: 0.7rem 0 !important;
+        width: 100%; /* Makes the clickable area larger */
+    }
+
+    .nav-add-btn {
+        border: 1px solid #ddd; /* Adds a nice border on mobile to separate it */
+        width: fit-content;
+        padding: 0.5rem 1.5rem !important;
+        margin-top: 1rem;
+    }
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+.listing-link {
+    text-decoration: none;
+    color: #222222;
+}
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100%;
+    object-fit: cover;
+}
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+/* Card Images (Index Page) */
+.listing-card img {
+    height: 20rem; /* Fixed height */
+    width: 100%;   /* Responsive width */
+    object-fit: cover; /* Crops the image to fit without stretching */
+    border-radius: 1rem !important;
+    transition: 0.2s ease-in-out;
+}
+
+/* Detail Image (Show Page) */
+.show-img {
+    width: 100%; 
+    max-height: 400px; /* Limits height on large screens */
+    object-fit: cover;
+    border-radius: 1.5rem !important;
+}
+
+/* Hover effect for the Index cards */
+.listing-card:hover img {
+    opacity: 0.9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Listing Cards */
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100%;
+    height: 18rem !important; /* Fixed height */
+    object-fit: cover !important; /* Forces responsive crop, not stretch */
+}
+
+.card-body {
+    padding: 0.5rem 0 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+    color: #222222;
+}
+
+.listing-link:hover {
+    color: #222222;
+}
+
+/* Card Hover Effect */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
