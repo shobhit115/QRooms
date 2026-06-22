@@ -1,51 +1,47 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<%- include("../includes/filter.ejs") %>
+    <%- include("../includes/filter.ejs") %>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-    <% for(let listing of allListings){ %>
-        <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
-            <div class="card col listing-card h-100 shadow-sm">
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 mt-3">
+            <% for(let listing of allListings){ %>
+                <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
+                    <div class="card col listing-card h-100 shadow-sm">
 
-                <img
-                    src="<%= listing.image.url %>"
-                    class="card-img-top"
-                    alt="listing_image"
-                />
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" />
 
-                <div class="card-img-overlay"></div>
+                        <div class="card-img-overlay"></div>
 
-                <div class="card-body">
+                        <div class="card-body">
 
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="card-title mb-0">
-                            <%= listing.title %>
-                        </h5>
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title mb-0">
+                                    <%= listing.title %>
+                                </h5>
 
-                        <div class="d-flex align-items-center gap-2 mb-2">
-    <span class="text-warning">
-        ⭐ <%= listing.avgRating?.toFixed(1) || "N/A" %>
-    </span>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="text-warning">
+                                        ⭐ <%= listing.avgRating?.toFixed(1) || "N/A" %>
+                                    </span>
 
-    <span class="text-muted small">
-        (<%= listing.reviews?.length || 0 %> reviews)
-    </span>
-</div>
+                                    <span class="text-muted small">
+                                        (<%= listing.reviews?.length || 0 %> reviews)
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p class="text-muted mb-2">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <%= listing.location %>
+                            </p>
+
+
+
+                            <h6 class="fw-bold my-primary">
+                                ₹ <%= listing.price.toLocaleString("en-IN") %> / Month
+                            </h6>
+
+                        </div>
                     </div>
-
-                    <p class="text-muted mb-2">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <%= listing.location %>
-                    </p>
-
-                    
-
-                    <h6 class="fw-bold my-primary">
-                        ₹ <%= listing.price.toLocaleString("en-IN") %> / Month
-                    </h6>
-
-                </div>
-            </div>
-        </a>
-    <% } %>
-</div>
+                </a>
+                <% } %>
+        </div>
