@@ -18,17 +18,26 @@ const listingSchema = new schema({
     },
     location: String,
     country: String,
-
+    avgRating: {
+        type: Number,
+        default: 0
+    },
+    reviewCount: {
+        type: Number,
+        default: 0
+    },
     reviews: [
         {
             type: schema.Types.ObjectId,
             ref: "Review",
         }
     ],
+
     owner: {
         type: schema.Types.ObjectId,
         ref: "user",
     },
+
     geometry: {
         type: {
             type: String,

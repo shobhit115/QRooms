@@ -1,184 +1,219 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<div class="container mt-4 mb-5">
-    <div class="row">
-        <div class="col-12 col-md-8 offset-md-2 mb-3">
-            <h2 class="fw-bold"><%= listing.title %></h2>
-        </div>
+    <div class="container mt-4 mb-5">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 mb-3">
+                <h2 class="fw-bold">
+                    <%= listing.title %>
+                </h2>
+            </div>
 
-        <div class="col-12 col-md-8 offset-md-2">
-            <div class="card show-card listing-card border-0 shadow-sm rounded-4 overflow-hidden">
-                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image" style="height: 450px; object-fit: cover;" />
-                
-                <div class="card-body px-4 py-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <p class="card-text text-muted mb-0">
-                            Hosted by <span class="fw-bold text-dark">@<%= listing.owner.username %></span>
-                        </p>
-                        <span class="badge bg-light text-dark border"><i class="fa-solid fa-shield-halved me-1"></i> Verified</span>
-                    </div>
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="card show-card listing-card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image"
+                        style="height: 450px; object-fit: cover;" />
 
-                    <div class="fs-5 text-secondary mb-4">
-                        <%= listing.description %>
-                    </div>
-
-                    <hr class="opacity-10" />
-
-                    <div class="row mt-4">
-                        <div class="col-sm-6">
-                            <h5 class="fw-bold">Pricing</h5>
-                            <p class="fs-4 text-danger mb-0">
-                                &#8377; <%= listing.price.toLocaleString("en-IN") %> <span class="fs-6 text-muted fw-normal">/ Month</span>
+                    <div class="card-body px-4 py-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <p class="card-text text-muted mb-0">
+                                Hosted by <span class="fw-bold my-primary">@<%= listing.owner.username %></span>
                             </p>
+                            <% if(listing.owner.isVerified){ %>
+                                <span class="badge bg-success ms-2">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Verified
+                                </span>
+                                <% } %>
                         </div>
-                        <div class="col-sm-6">
-                            <h5 class="fw-bold">Location</h5>
-                            <p class="text-muted fs-6">
-                                <i class="fa-solid fa-location-dot me-2 text-danger"></i>
-                                <%= listing.location %>, <%= listing.state %>
-                            </p>
+
+                        <div class="fs-5 text-secondary mb-4">
+                            <%= listing.description %>
+                        </div>
+
+                        <hr class="opacity-10" />
+
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <h5 class="fw-bold">Pricing</h5>
+                                <p class="fs-4 my-primary mb-0">
+                                    &#8377; <%= listing.price.toLocaleString("en-IN") %> <span
+                                            class="fs-6 text-muted fw-normal">/ Month</span>
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="fw-bold">Location</h5>
+                                <p class="text-muted fs-6">
+                                    <i class="fa-solid fa-location-dot me-2 my-primary"></i>
+                                    <%= listing.location %>, <%= listing.state %>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <% if(currentUser && currentUser._id.equals(listing.owner._id)){ %>
+                    <div class="btns d-flex gap-3 mt-4 mb-5">
+                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark px-5 rounded-pill shadow-sm">
+                            <i class="fa-solid fa-pen-to-square me-2"></i>Edit Listing
+                        </a>
+                        <form method="POST" action="/listings/<%= listing._id%>?_method=DELETE" class="d-inline">
+                            <button class="btn btn-outline-danger px-5 rounded-pill shadow-sm">
+                                <i class="fa-solid fa-trash me-2"></i>Delete
+                            </button>
+                        </form>
+                    </div>
+                    <% } %>
             </div>
 
-            <% if(currentUser && currentUser._id.equals(listing.owner._id)){ %>
-            <div class="btns d-flex gap-3 mt-4 mb-5">
-                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark px-5 rounded-pill shadow-sm">
-                    <i class="fa-solid fa-pen-to-square me-2"></i>Edit Listing
-                </a>
-                <form method="POST" action="/listings/<%= listing._id%>?_method=DELETE" class="d-inline">
-                    <button class="btn btn-outline-danger px-5 rounded-pill shadow-sm">
-                        <i class="fa-solid fa-trash me-2"></i>Delete
-                    </button>
-                </form>
-            </div>
-            <% } %>
-        </div>
 
+            <hr class="col-12 col-md-8 offset-md-2 my-5 opacity-10">
 
-        <hr class="col-12 col-md-8 offset-md-2 my-5 opacity-10">
+            <% if(currentUser){ %>
+                <div class="col-12 col-md-8 offset-md-2 mb-5">
+                    <div class="card border-0 bg-light p-4 rounded-4 shadow-sm">
+                        <h4 class="mb-4 fw-bold">Leave a Review</h4>
+                        <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation"
+                            novalidate>
 
-        <% if(currentUser){ %>
-        <div class="col-12 col-md-8 offset-md-2 mb-5">
-            <div class="card border-0 bg-light p-4 rounded-4 shadow-sm">
-                <h4 class="mb-4 fw-bold">Leave a Review</h4>
-                <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
-                    
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Rating</label>
-                        <div id="starRating" class="fs-2 text-warning">
-                            <i class="fa-regular fa-star star clickable" data-value="1"></i>
-                            <i class="fa-regular fa-star star clickable" data-value="2"></i>
-                            <i class="fa-regular fa-star star clickable" data-value="3"></i>
-                            <i class="fa-regular fa-star star clickable" data-value="4"></i>
-                            <i class="fa-regular fa-star star clickable" data-value="5"></i>
-                        </div>
-                        <input type="hidden" name="review[rating]" id="ratingInput" required>
-                        <div class="invalid-feedback">Please select a rating star.</div>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Rating</label>
+                                <div id="starRating" class="fs-2 text-warning">
+                                    <i class="fa-regular fa-star star clickable" data-value="1"></i>
+                                    <i class="fa-regular fa-star star clickable" data-value="2"></i>
+                                    <i class="fa-regular fa-star star clickable" data-value="3"></i>
+                                    <i class="fa-regular fa-star star clickable" data-value="4"></i>
+                                    <i class="fa-regular fa-star star clickable" data-value="5"></i>
+                                </div>
+                                <input type="hidden" name="review[rating]" id="ratingInput" required>
+                                <div class="invalid-feedback">Please select a rating star.</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="comment" class="form-label fw-bold">Your Experience</label>
+                                <textarea class="form-control border-0 shadow-sm p-3" id="comment"
+                                    name="review[comment]" rows="4" placeholder="Tell others about your stay..."
+                                    required></textarea>
+                                <div class="invalid-feedback">Share a few words about your stay.</div>
+                            </div>
+
+                            <button class="btn btn-danger px-5 py-2 rounded-pill shadow-sm fw-bold">Post Review</button>
+                        </form>
                     </div>
+                </div>
+                <% } %>
 
-                    <div class="mb-4">
-                        <label for="comment" class="form-label fw-bold">Your Experience</label>
-                        <textarea class="form-control border-0 shadow-sm p-3" id="comment" name="review[comment]" rows="4" placeholder="Tell others about your stay..." required></textarea>
-                        <div class="invalid-feedback">Share a few words about your stay.</div>
-                    </div>
+                    <div class="col-12 col-md-8 offset-md-2">
+                        <h4 class="mb-4 fw-bold">Guest Reviews</h4>
+                        <div class="row">
+                            <% if(listing.reviews.length===0){ %>
+                                <div class="col-12">
+                                    <p class="text-muted bg-light p-4 rounded-4 text-center">No reviews yet. Be the
+                                        first to share your experience!</p>
+                                </div>
+                                <% } else { %>
+                                    <% listing.reviews.forEach(review=> { %>
+                                        <div class="col-12 col-lg-6 mb-4">
+                                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3"
+                                                                style="width:45px; height:45px;">
+                                                                <%= review.author?.username?.charAt(0).toUpperCase()
+                                                                    || "U" %>
+                                                            </div>
+                                                            <div>
+                                                                <div class="fw-bold mb-0 my-primary">
 
-                    <button class="btn btn-danger px-5 py-2 rounded-pill shadow-sm fw-bold">Post Review</button>
-                </form>
-            </div>
-        </div>
-        <% } %>
+                                                                    @<%= review.author?.username || "Guest" %>
 
-        <div class="col-12 col-md-8 offset-md-2">
-            <h4 class="mb-4 fw-bold">Guest Reviews</h4>
-            <div class="row">
-                <% if(listing.reviews.length === 0){ %>
-                    <div class="col-12">
-                        <p class="text-muted bg-light p-4 rounded-4 text-center">No reviews yet. Be the first to share your experience!</p>
-                    </div>
-                <% } else { %>
-                    <% listing.reviews.forEach(review => { %>
-                        <div class="col-12 col-lg-6 mb-4">
-                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width:45px; height:45px;">
-                                                <%= review.author?.username?.charAt(0).toUpperCase() || "U" %>
-                                            </div>
-                                            <div>
-                                                <div class="fw-bold mb-0">@<%= review.author?.username || "Guest" %></div>
-                                                <small class="text-muted"><%= new Date(review.createdAt).toLocaleDateString() %></small>
+                                                                        <% if(review.author?.isVerified){ %>
+                                                                            <i class="fa-solid fa-circle-check text-primary ms-1"
+                                                                                title="Verified User">
+                                                                            </i>
+                                                                            <% } %>
+
+                                                                </div>
+                                                                <small class="text-muted">
+                                                                    <%= new Date(review.createdAt).toLocaleDateString()
+                                                                        %>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+
+                                                        <% if (currentUser && review.author &&
+                                                            currentUser._id.equals(review.author._id)) { %>
+                                                            <form method="POST"
+                                                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                                <button
+                                                                    class="btn btn-sm btn-outline-dark border-0 rounded-circle"><i
+                                                                        class="fa-solid fa-trash-can"></i></button>
+                                                            </form>
+                                                            <% } %>
+                                                    </div>
+
+                                                    <div class="mb-2 text-warning">
+                                                        <% for(let i=1; i <=5; i++){ %>
+                                                            <i
+                                                                class="fa-<%= i <= review.rating ? 'solid' : 'regular' %> fa-star"></i>
+                                                            <% } %>
+                                                    </div>
+                                                    <p class="card-text text-secondary">
+                                                        <%= review.comment %>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                        
-                                        <% if (currentUser && review.author && currentUser._id.equals(review.author._id)) { %>
-                                            <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                <button class="btn btn-sm btn-outline-dark border-0 rounded-circle"><i class="fa-solid fa-trash-can"></i></button>
-                                            </form>
-                                        <% } %>
-                                    </div>
-                                    
-                                    <div class="mb-2 text-warning">
-                                        <% for(let i=1; i <= 5; i++){ %>
-                                            <i class="fa-<%= i <= review.rating ? 'solid' : 'regular' %> fa-star"></i>
-                                        <% } %>
-                                    </div>
-                                    <p class="card-text text-secondary"><%= review.comment %></p>
-                                </div>
-                            </div>
+                                        <% }) %>
+                                            <% } %>
                         </div>
-                    <% }) %>
-                <% } %>
-            </div>
-        </div>
-        <hr class="col-12 col-md-8 offset-md-2 my-5 opacity-10">
+                    </div>
+                    <hr class="col-12 col-md-8 offset-md-2 my-5 opacity-10">
 
-        <div class="col-12 col-md-8 offset-md-2 mb-5">
-            <h4 class="mb-4 fw-bold"><i class="fa-solid fa-map-location-dot me-2"></i>Where you'll be</h4>
-            <div id="map" class="rounded-4 shadow-sm border" style="height: 400px; width: 100%;"></div>
+                    <div class="col-12 col-md-8 offset-md-2 mb-5">
+                        <h4 class="mb-4 fw-bold"><i class="fa-solid fa-map-location-dot me-2"></i>Where you'll be</h4>
+                        <div id="map" class="rounded-4 shadow-sm border" style="height: 400px; width: 100%;"></div>
+                    </div>
         </div>
     </div>
-</div>
-<script src="/js/leaflet.js"></script>
-<script id="coords-data" type="application/json">
+    <script src="/js/leaflet.js"></script>
+    <script id="coords-data" type="application/json">
   <%- JSON.stringify(coordinates) %>
 </script>
-<script>
-const raw = document.getElementById("coords-data").textContent;
-let coords = null;
+    <script>
+        const raw = document.getElementById("coords-data").textContent;
+        let coords = null;
 
-try {
-  coords = JSON.parse(raw);
-} catch (e) {
-  coords = null;
-}
+        try {
+            coords = JSON.parse(raw);
+        } catch (e) {
+            coords = null;
+        }
 
-// 🔥 strict validation
-const isValidCoords =
-  Array.isArray(coords) &&
-  coords.length === 2 &&
-  !isNaN(coords[0]) &&
-  !isNaN(coords[1]);
+        // 🔥 strict validation
+        const isValidCoords =
+            Array.isArray(coords) &&
+            coords.length === 2 &&
+            !isNaN(coords[0]) &&
+            !isNaN(coords[1]);
 
-const defaultLat = 30.008797688147396;
-const defaultLng = 77.76364474408723;
+        const defaultLat = 30.008797688147396;
+        const defaultLng = 77.76364474408723;
 
-const lat = isValidCoords ? coords[1] : defaultLat;
-const lng = isValidCoords ? coords[0] : defaultLng;
+        const lat = isValidCoords ? coords[1] : defaultLat;
+        const lng = isValidCoords ? coords[0] : defaultLng;
 
-// now Leaflet will NEVER get undefined
-const map = L.map('map').setView([lat, lng], 13);
+        // now Leaflet will NEVER get undefined
+        const map = L.map('map').setView([lat, lng], 13);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-L.marker([lat, lng])
-  .addTo(map)
-  .bindPopup(
-    isValidCoords
-      ? "<%= listing.location %>"
-      : "Quantum University - Location Unavailable"
-  )
-  .openPopup();
-</script>
+        L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(
+                isValidCoords
+                    ? "<%= listing.location %>"
+                    : "Quantum University - Location Unavailable"
+            )
+            .openPopup();
+    </script>

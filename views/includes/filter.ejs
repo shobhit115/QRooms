@@ -1,0 +1,51 @@
+<div class="d-md-none mb-3">
+    <button class="btn btn-dark w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterForm">
+        <i class="fa-solid fa-filter"></i> Filters
+    </button>
+</div>
+
+<div class="collapse d-md-block" id="filterForm">
+    <div class="filter-bar mb-4 p-3 bg-white border rounded-4 shadow-sm">
+        <form action="/listings" method="GET" class="row g-2 align-items-center">
+            
+            <div class="col-12 col-md-3">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" name="search" class="form-control" placeholder="PG Name" value="<%= req.query.search %>">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-location-dot"></i></span>
+                    <input type="text" name="location" class="form-control" placeholder="Location" value="<%= req.query.location %>">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 d-flex gap-2">
+                <select name="price" class="form-select">
+                    <option value="">Budget</option>
+                    <option value="3000" <%= req.query.price === '3000' ? 'selected' : '' %>>≤ ₹3000</option>
+                    <option value="5000" <%= req.query.price === '5000' ? 'selected' : '' %>>≤ ₹5000</option>
+                    <option value="10000" <%= req.query.price === '10000' ? 'selected' : '' %>>≤ ₹10000</option>
+                </select>
+
+                <select name="rating" class="form-select">
+                    <option value="">Rating</option>
+                    <option value="4" <%= req.query.rating === '4' ? 'selected' : '' %>>4★+</option>
+                    <option value="3" <%= req.query.rating === '3' ? 'selected' : '' %>>3★+</option>
+                </select>
+
+                <select name="verified" class="form-select">
+                    <option value="">User</option>
+                    <option value="true" <%= req.query.verified === 'true' ? 'selected' : '' %>>✔ Verified</option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-2 d-flex gap-2">
+                <button class="btn btn-dark flex-grow-1"><i class="fa-solid fa-filter"></i> Apply</button>
+                <a href="/listings" class="btn btn-outline-secondary flex-grow-1"><i class="fa-solid fa-rotate-left"></i></a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -3,8 +3,56 @@ const axios = require("axios");
 
 // INDEX
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
+
+    let filter = {};
+
+    if(req.query.location){
+        filter.location = {
+            $regex: req.query.location,
+            $options: "i"
+        };
+    }
+
+    if(req.query.price){
+        filter.price = {
+            $lte: Number(req.query.price)
+        };
+    }
+
+    if(req.query.search){
+        filter.$or = [
+            {
+                title: {
+                    $regex: req.query.search,
+                    $options: "i"
+                }
+            },
+            {
+                location: {
+                    $regex: req.query.search,
+                    $options: "i"
+                }
+            }
+        ];
+    }
+    
+    if(req.query.rating){
+    filter.avgRating = {
+        $gte: Number(req.query.rating)
+    };
+}
+
+   let allListings = await Listing.find(filter)
+    .populate("owner");
+
+if(req.query.verified === "true"){
+    allListings = allListings.filter(
+        listing => listing.owner?.isVerified
+    );
+}
+    res.render("listings/index.ejs", {
+        allListings, req
+    });
 };
 
 // NEW FORM
