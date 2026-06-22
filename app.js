@@ -21,7 +21,6 @@ const passport = require("passport");
 const localStrategy = require("passport-local"); 
 const User = require("./models/user.js");
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 const dburl = process.env.ATLASDB_URL;
 
@@ -87,14 +86,6 @@ app.use((req,res,next)=>{
     next();
 });
 
-// app.get("/demouser", async (req,res)=>{
-//     const user = new User({
-//         username: "harshpreet",
-//         email: "hashpreet1577@gmail.com"
-//     });
-//     let registerUser = await User.register(user,"harshpreet");
-//     res.send(registerUser);
-// });
 
 app.use("/listings",listingsRoute);
 app.use("/listings/:id/reviews",reviewsRoute);
