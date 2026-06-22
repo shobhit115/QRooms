@@ -2,7 +2,7 @@
 
 > A platform for students at Quantum University to find and share verified PG accommodations near campus — without relying on scattered WhatsApp groups or unverified broker listings.
 
-**Live demo:** https://qrooms.onrender.com/listings
+**Live demo:** https://qrooms.onrender.com/
 
 ---
 
